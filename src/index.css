@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Delius+Swash+Caps&family=Outfit:wght@100..900&display=swap");
+
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark, cupcake;
+}
+
+.text,
+p {
+  font-family: "Delius Swash Caps", serif !important;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.title,
+h1,
+h2,
+h3,
+li {
+  font-family: "Outfit", serif !important;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+a.active {
+  background: #dcdcdc;
+  color: darkblue;
+}
