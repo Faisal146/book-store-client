@@ -3,6 +3,7 @@ import {
   useGetOrdersQuery,
   useRemoveOrderMutation,
 } from "../../redux/features/api/orders";
+import { TOrder } from "../../types";
 
 const Orders = () => {
   const { data } = useGetOrdersQuery(undefined);
@@ -12,7 +13,7 @@ const Orders = () => {
 
   const orders = data?.data?.result;
 
-  const handleDelete = async (id, title) => {
+  const handleDelete = async (id: string, title: string) => {
     // Show confirmation alert
     const result = await Swal.fire({
       icon: "warning",
@@ -51,7 +52,7 @@ const Orders = () => {
 
       <div className="grid gap-6">
         {orders ? (
-          orders.map((item) => (
+          orders.map((item: TOrder) => (
             <div
               key={item.name}
               className="card border-2 border-gray-100 card-side bg-base-100 shadow-xl"

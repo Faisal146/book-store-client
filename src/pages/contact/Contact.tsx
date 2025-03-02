@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaEnvelope, FaMapLocation, FaPhone } from "react-icons/fa6";
 
-import img from "../../assets/open-book-on-light-background-3d-illustration-photo.jpg";
+import img from "../../assets/pckk4xhg.png";
 
 const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -32,7 +32,7 @@ const ContactPage: React.FC = () => {
         style={{
           background: `url(${img})`,
           backgroundSize: "cover",
-          backgroundPosition: "center center",
+          backgroundPosition: "top center",
         }}
       >
         <h1 className="text-4xl text-center">Get in touch</h1>

@@ -6,15 +6,31 @@ import {
   useRemoveBookMutation,
 } from "../redux/features/api/products";
 import Swal from "sweetalert2";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import bookImg from "../assets/default_book.jpeg";
 
 const Products = () => {
+  const [filter, setFilter] = useState(null);
+  const { register, handleSubmit } = useForm();
+
   let id = 1;
 
-  const { data } = useGetBooksQuery(undefined);
+  const { data } = useGetBooksQuery(filter);
 
   const [deleteProduct] = useRemoveBookMutation(undefined);
 
   const products = data?.data?.result;
+
+  const totalPage = Array.from(
+    { length: data?.data?.meta.totalPage },
+    (_, index) => index + 1
+  );
+
+  const onPaginate = (data) => {
+    //  console.log(data);
+    setFilter(data);
+  };
 
   const handleDelete = async (id, title) => {
     try {
@@ -72,6 +88,7 @@ const Products = () => {
           <thead>
             <tr>
               <th>#</th>
+              <th>Image</th>
               <th>Title</th>
               <th>Category</th>
               <th>Stock Status</th>
@@ -86,6 +103,14 @@ const Products = () => {
               products.map((item) => (
                 <tr>
                   <th>{id++}</th>
+
+                  <th>
+                    <img
+                      src={item?.img ? item?.img : bookImg}
+                      alt=""
+                      className="h-12 w-12 rounded-md"
+                    />
+                  </th>
                   <th>{item.title}</th>
                   <th>{item.category}</th>
                   <td>{item.quantity}</td>
@@ -112,6 +137,24 @@ const Products = () => {
             )}
           </tbody>
         </table>
+
+        <div className="flex justify-center py-8">
+          <div className="join">
+            <form onChange={handleSubmit(onPaginate)}>
+              {totalPage.map((item) => (
+                <input
+                  className={`join-item btn ${
+                    data?.data?.meta.page == item ? "btn-primary" : "btn-soft"
+                  }`}
+                  type="radio"
+                  value={item}
+                  {...register("page")}
+                  aria-label={item}
+                />
+              ))}
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   );

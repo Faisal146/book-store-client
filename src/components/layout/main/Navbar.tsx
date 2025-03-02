@@ -22,8 +22,6 @@ const Navbar = () => {
     subTotal += item.item.price * item.quantity;
   });
 
-  console.log(subTotal);
-
   const navlinks = (
     <>
       {/* <li>

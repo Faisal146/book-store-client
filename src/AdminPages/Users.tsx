@@ -1,6 +1,7 @@
 import { FaLock, FaPlus, FaUnlock } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { FaEdit } from "react-icons/fa";
+import profileImg from "../assets/Default_pfp.jpg";
 
 import Swal from "sweetalert2";
 import {
@@ -114,6 +115,7 @@ const Users = () => {
           <thead>
             <tr>
               <th>#</th>
+              <th>Image</th>
               <th>Name</th>
               <th>Email</th>
               <th>Role </th>
@@ -128,6 +130,13 @@ const Users = () => {
               users.map((item) => (
                 <tr>
                   <th>{id++}</th>
+                  <th>
+                    <img
+                      src={item?.profileImg ? item?.profileImg : profileImg}
+                      alt=""
+                      className="h-12 w-12 rounded-md"
+                    />
+                  </th>
                   <th>{item.name}</th>
                   <th>{item.email}</th>
                   <td>{item.role}</td>

@@ -193,7 +193,7 @@ const Details = () => {
         <h1 className="text-2xl text-center ">{book?.author}</h1>
       </div>
       <div className="text-center mx-4">
-        <Link to="/all" className="btn btn-accent md:w-96 w-full">
+        <Link to="/books" className="btn btn-accent md:w-96 w-full">
           <FaArrowLeft></FaArrowLeft> Back
         </Link>
       </div>

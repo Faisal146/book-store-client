@@ -5,8 +5,6 @@ import defaultImg from "../../assets/default_book.jpeg";
 import { Link } from "react-router-dom";
 
 const Item = (item) => {
-  console.log(item.item);
-
   const {
     author,
 
@@ -50,7 +48,9 @@ const Item = (item) => {
 
           <h2 className="card-title">{title}</h2>
           <div className="flex justify-between">
-            <h2 className="text-2xl mt-3 font-bold text-gray-600">{price}</h2>
+            <h2 className="text-2xl mt-3 font-bold text-gray-600">
+              {price} Tk.
+            </h2>
             <p className="btn btn-sm  mt-2">
               {" "}
               {inStock ? "available" : "stock Out"}{" "}

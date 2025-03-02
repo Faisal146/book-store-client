@@ -42,6 +42,10 @@ const router = createBrowserRouter([
         element: <AllItems></AllItems>,
       },
       {
+        path: "/books/:category",
+        element: <AllItems></AllItems>,
+      },
+      {
         path: "/about",
         element: <About></About>,
       },

@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 const Slide = () => {
   const settings = {
     dots: true,
-
+    arrows: false,
     fade: true,
     infinite: true,
     speed: 500,
@@ -43,14 +43,18 @@ const Slide = () => {
                 <div>
                   <h1 className="text-5xl title pb-6">
                     {" "}
-                    Buy your favourite books in best prices
+                    Discover Your Next Adventure
                   </h1>
                   <p className="text text-xl">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Reprehenderit magni nulla nesciunt mollitia sapiente
-                    dignissimos nihil aliquid architecto
+                    Step into a world of endless possibilities at Moonlight book
+                    shop! Whether you're a fan of thrilling mysteries,
+                    heartwarming romances, or thought-provoking non-fiction, we
+                    have the perfect book waiting for you. Our carefully curated
+                    collection ensures there's something for every reader.
                   </p>
-                  <button className="btn btn-primary mt-8">Buy Now</button>
+                  <Link to="/books" className="btn btn-primary mt-8">
+                    Buy Now
+                  </Link>
                 </div>
                 <img
                   src={img2}
@@ -74,12 +78,15 @@ const Slide = () => {
                 <div>
                   <h1 className="text-5xl title pb-6">
                     {" "}
-                    Buy your favourite books in best prices
+                    A Haven for Book Lovers
                   </h1>
                   <p className="text text-xl">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Reprehenderit magni nulla nesciunt mollitia sapiente
-                    dignissimos nihil aliquid architecto
+                    Welcome to Moonlight book shop, where every page tells a
+                    story and every shelf holds a treasure. From timeless
+                    classics to the latest bestsellers, our cozy bookshop is a
+                    paradise for readers of all ages. Join our community of book
+                    lovers, attend our events, and immerse yourself in the magic
+                    of reading.
                   </p>
                   <button className="btn btn-primary mt-8">Buy Now</button>
                 </div>
@@ -105,12 +112,14 @@ const Slide = () => {
                 <div>
                   <h1 className="text-5xl title pb-6">
                     {" "}
-                    Buy your favourite books in best prices
+                    Books That Inspire, Stories That Stay
                   </h1>
                   <p className="text text-xl">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Reprehenderit magni nulla nesciunt mollitia sapiente
-                    dignissimos nihil aliquid architecto
+                    Explore our diverse collection of books, handpicked to
+                    ignite your imagination and touch your heart. Whether you're
+                    here for a quick escape or a deep dive into a new topic,
+                    we're here to help you find the perfect read. Let's turn the
+                    page together!
                   </p>
                   <button className="btn btn-primary mt-8">Buy Now</button>
                 </div>

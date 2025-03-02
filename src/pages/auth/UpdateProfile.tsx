@@ -31,7 +31,15 @@ const UpdateProfile = () => {
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     console.log("Profile Updated:", data);
 
-    const res = await updateUser({ id: u._id, data });
+    const UpdatedData = {};
+    Object.keys(data).forEach((item) => {
+      console.log(item);
+      if (data[item]) {
+        UpdatedData[item] = data[item];
+      }
+    });
+
+    const res = await updateUser({ id: u._id, UpdatedData });
     // console.log(res);
 
     if (res.error) {
