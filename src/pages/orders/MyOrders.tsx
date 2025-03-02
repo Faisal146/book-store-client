@@ -1,16 +1,19 @@
 import Swal from "sweetalert2";
+import titleBg from "../../assets/postero-bg-6.jpg";
 import {
-  useGetOrdersQuery,
+  useGetUserOrdersQuery,
   useRemoveOrderMutation,
 } from "../../redux/features/api/orders";
 
-const Orders = () => {
-  const { data } = useGetOrdersQuery(undefined);
+const MyOrders = () => {
+  let id = 1;
+
+  const { data } = useGetUserOrdersQuery(undefined);
   console.log(data);
 
   const [deleteOrder] = useRemoveOrderMutation(undefined);
 
-  const orders = data?.data?.result;
+  const orders = data?.data;
 
   const handleDelete = async (id, title) => {
     // Show confirmation alert
@@ -45,12 +48,19 @@ const Orders = () => {
 
   return (
     <div>
-      <div className="pb-6">
-        <h1 className="text-3xl">Order Management</h1>
+      <div
+        className="bg-base-200 py-16 my-10 text-center "
+        style={{
+          background: `url(${titleBg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center center",
+        }}
+      >
+        <h1 className="text-4xl text-center">My orders</h1>
       </div>
 
-      <div className="grid gap-6">
-        {orders ? (
+      <div className="max-w-6xl mx-auto grid gap-6 min-h-96 pb-12">
+        {orders && orders?.length > 0 ? (
           orders.map((item) => (
             <div
               key={item.name}
@@ -101,11 +111,17 @@ const Orders = () => {
             </div>
           ))
         ) : (
-          <h1>Loading...</h1>
+          <div>
+            {orders?.length < 1 ? (
+              <h1 className="h-96 text-center">No order found</h1>
+            ) : (
+              <h1 className="h-96 text-center">Loading...</h1>
+            )}
+          </div>
         )}
       </div>
     </div>
   );
 };
 
-export default Orders;
+export default MyOrders;

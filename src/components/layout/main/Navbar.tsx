@@ -6,12 +6,23 @@ import {
 } from "../../../redux/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { FaUser } from "react-icons/fa6";
+import { useGetSingleUserEmailQuery } from "../../../redux/features/api/users";
 
 const Navbar = () => {
   const userInfo = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
 
-  console.log(userInfo);
+  const { data: userData } = useGetSingleUserEmailQuery(userInfo?.email);
+
+  let subTotal = 0;
+
+  userData?.data?.cart.map((item) => {
+    // console.log(item.item.price * item.quantity);
+
+    subTotal += item.item.price * item.quantity;
+  });
+
+  console.log(subTotal);
 
   const navlinks = (
     <>
@@ -72,7 +83,7 @@ const Navbar = () => {
                 {navlinks}
               </ul>
             </div>
-            <a className="btn btn-ghost text-xl">
+            <a className="btn btn-ghost text-xl text ">
               <img src={moonlogo} alt="" className="h-10" />
               Moonlignt Book Shop
             </a>
@@ -106,21 +117,32 @@ const Navbar = () => {
                         />{" "}
                       </svg>
                       <span className="badge badge-sm indicator-item bg-gray-300">
-                        8
+                        {userData?.data?.cart.length}
                       </span>
                     </div>
                   </div>
                   <div
                     tabIndex={0}
-                    class="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow"
+                    className="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow"
                   >
                     <div className="card-body">
-                      <span className="text-lg font-bold">8 Items</span>
-                      <span className="text-info">Subtotal: $999</span>
+                      <span className="text-lg font-bold">
+                        {userData?.data?.cart.length} Items
+                      </span>
+                      <span className="text-info">Subtotal: {subTotal}</span>
                       <div className="card-actions">
-                        <button className="btn btn-primary btn-block">
+                        <Link
+                          to="/cart"
+                          className="btn btn-info mt-4 btn-block"
+                        >
                           View cart
-                        </button>
+                        </Link>
+                        <Link
+                          to="/checkout"
+                          className="btn btn-primary btn-block"
+                        >
+                          Check Out
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -132,19 +154,45 @@ const Navbar = () => {
                     role="button"
                     className="btn btn-ghost btn-circle avatar"
                   >
-                    <div className="w-10 rounded-full border-2 border-gray-300">
-                      <FaUser className="text-4xl p-1 text-gray-400"></FaUser>
-                    </div>
+                    {userData?.data?.profileImg ? (
+                      <div
+                        className="w-10 rounded-full border-2 border-gray-300"
+                        style={{
+                          background: `url(${userData?.data?.profileImg})`,
+                          backgroundSize: "cover",
+                        }}
+                      ></div>
+                    ) : (
+                      <div className="w-10 rounded-full border-2 border-gray-300">
+                        <FaUser className="text-4xl p-1 text-gray-400"></FaUser>
+                      </div>
+                    )}
                   </div>
+
                   <ul
                     tabIndex={0}
                     className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
                   >
                     <li>
+                      <a className=""> {userData?.data?.name}</a>
+                    </li>
+                    <li>
                       <a className="">{userInfo.email}</a>
                     </li>
                     <li>
-                      <a className="">Profile</a>
+                      <Link to="/orders" className="">
+                        My Orders
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/profile" className="">
+                        Profile
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/update-profile" className="">
+                        Update Profile
+                      </Link>
                     </li>
 
                     <li>

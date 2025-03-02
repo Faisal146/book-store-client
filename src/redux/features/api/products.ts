@@ -26,11 +26,11 @@ const authApi = baseApi.injectEndpoints({
     }),
     updateBook: builder.mutation({
       query: (args) => {
-        const { id, data } = args;
+        const { id, UpdatedData } = args;
         return {
           url: `/products/${id}`,
           method: "PUT",
-          body: data,
+          body: UpdatedData,
         };
       },
     }),

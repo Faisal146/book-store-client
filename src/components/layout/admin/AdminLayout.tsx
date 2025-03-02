@@ -7,11 +7,15 @@ import {
 } from "react-icons/fa";
 import logoDark from "../../../assets/moonLogo-Dark.svg";
 import { NavLink, Outlet } from "react-router-dom";
-import { useAppSelector } from "../../../redux/hook";
-import { selectCurrentUser } from "../../../redux/features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
+import {
+  logout,
+  selectCurrentUser,
+} from "../../../redux/features/auth/authSlice";
 
 const AdminLayout = () => {
   const userInfo = useAppSelector(selectCurrentUser);
+  const dispatch = useAppDispatch();
 
   // const navigate = useNavigate();
   const menuItems = (
@@ -82,7 +86,10 @@ const AdminLayout = () => {
               <a className="btn btn-ghost text-xl">Admin : {userInfo?.email}</a>
             </div>
             <div className="flex-none">
-              <button className="btn mr-4 btn-info">
+              <button
+                onClick={() => dispatch(logout())}
+                className="btn mr-4 btn-info"
+              >
                 <FaArrowAltCircleLeft /> Log Out
               </button>
             </div>

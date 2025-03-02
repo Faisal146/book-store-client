@@ -5,6 +5,7 @@ import { useRegisterMutation } from "../../redux/features/auth/authApi";
 import Swal from "sweetalert2";
 import { FaPaperPlane } from "react-icons/fa";
 import img from "../../assets/best-of-2019.png";
+import { FaUser } from "react-icons/fa6";
 
 const Registration = () => {
   const [passShow, setPassShow] = useState(false);
@@ -14,14 +15,32 @@ const Registration = () => {
 
   const navigate = useNavigate();
 
+  const [file, setFile] = useState(null);
+
+  // Handle file input change
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]); // Get the first file
+  };
+
   const handleRegeister = async (e: any) => {
     e.preventDefault();
+
+    const formData = new FormData();
 
     const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
     const repassword = e.target.rePassword.value;
+
     console.log(email, password, name);
+    // console.log("file is =>", file);
+
+    if (file) {
+      console.log("File selected:", file);
+      // You can also upload the file to a server here if needed
+    } else {
+      console.log("No file selected");
+    }
 
     if (repassword !== password) {
       Swal.fire({
@@ -47,7 +66,13 @@ const Registration = () => {
           email,
           password,
         };
-        const res = await register(userInfo).unwrap();
+
+        formData.append("data", JSON.stringify(userInfo));
+        if (file) {
+          formData.append("file", file);
+        }
+
+        const res = await register(formData).unwrap();
         console.log(res);
 
         Swal.fire({
@@ -180,6 +205,15 @@ const Registration = () => {
                 {/* {passShow ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>} */}
               </span>
             </div>
+          </label>
+          <label className="input input-bordered flex items-center gap-2 my-3 w-96">
+            <FaUser className="h-4 w-4 opacity-70"></FaUser>
+            <input
+              type="file"
+              name="file"
+              onChange={handleFileChange}
+              className="file-input grow"
+            />
           </label>
 
           <button type="submit" className="btn  w-96  btn-accent mt-5">

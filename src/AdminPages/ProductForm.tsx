@@ -16,10 +16,23 @@ const ProductForm = () => {
   const onSubmit = async (data) => {
     console.log(data);
 
+    Swal.fire({
+      title: "Processing",
+      text: "Creating new book",
+      showConfirmButton: false,
+    });
+
     data.price = Number(data.price);
     data.quantity = Number(data.quantity);
 
-    const result = await addbook(data);
+    console.log(data.image[0]);
+
+    const formData = new FormData();
+
+    formData.append("data", JSON.stringify(data));
+    formData.append("file", data.image[0]);
+
+    const result = await addbook(formData);
     console.log(result);
 
     if (result.error) {
@@ -115,6 +128,17 @@ const ProductForm = () => {
           />
           <p className="validator-hint"></p>
         </fieldset>
+
+        <fieldset className="fieldset">
+          <legend className="fieldset-legend">Image</legend>
+          <input
+            type="file"
+            className="file-input"
+            placeholder="Type product quantity"
+            {...register("image")}
+          />
+          <p className="validator-hint"></p>
+        </fieldset>
         <button className="btn btn-info">Submit</button>
       </form>
     </div>
@@ -122,3 +146,35 @@ const ProductForm = () => {
 };
 
 export default ProductForm;
+
+/**
+ * 
+ * {
+  "name":"lolita",
+  "email": "siamtan",
+  "products": [
+    {
+      "product": "67bb4a078ce7105980cda58e",
+      "quantity": 2
+     
+    },
+ 
+    {
+      "product": "67be1af8a4ec23a6b478683e",
+      "quantity": 3
+           
+
+    }
+  ],
+  "address": {
+    "division": "rajshahi",
+    "district": "bogura",
+    "upazila": "dupchanchia",
+    "area": "co office road"
+  },
+  "paid" : true, 
+   "payment_method" : "online" 
+}
+ * 
+ * 
+ */

@@ -1,39 +1,79 @@
-import React, { useState } from "react";
+import { useAppSelector } from "../../redux/hook";
+import { selectCurrentUser } from "../../redux/features/auth/authSlice";
+import { useGetSingleUserEmailQuery } from "../../redux/features/api/users";
+import { useForm } from "react-hook-form";
+import { useAddOrderMutation } from "../../redux/features/api/orders";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutPage: React.FC = () => {
-  // State for form inputs
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    address: "",
-    city: "",
-    state: "",
-    zipCode: "",
-    cardNumber: "",
-    expiryDate: "",
-    cvv: "",
+  const userInfo = useAppSelector(selectCurrentUser);
+
+  const { data: userData } = useGetSingleUserEmailQuery(userInfo?.email);
+
+  const [addNewOrder] = useAddOrderMutation(undefined);
+  const navigate = useNavigate();
+
+  const products: any[] = [];
+
+  userData?.data?.cart.map((item) => {
+    products.push({
+      product: item.item?._id,
+      quantity: item.quantity,
+    });
   });
 
-  // Handle form input changes
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = async (data) => {
+    console.log(data);
+
+    const order = {
+      name: data.name,
+      email: data.email,
+      products: products,
+      address: {
+        division: data.division,
+        district: data.district,
+        upazila: data.upazila,
+        area: data.area,
+      },
+      paid: data.payment_method === "online" ? true : false,
+      payment_method: data.payment_method,
+    };
+
+    console.log(order);
+
+    const res = await addNewOrder(order);
+
+    console.log(res);
+
+    if (res.error) {
+      Swal.fire({
+        icon: "error",
+        title: "something went worng",
+      });
+    } else {
+      Swal.fire({
+        icon: "success",
+        title: "Order Placed",
+        confirmButtonText: "view summary",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate(`/order-complited/${res.data.data._id}`);
+        }
+      });
+    }
   };
 
+  // State for form input
+
   // Handle form submission
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
-    // Add your checkout logic here (e.g., API call, validation, etc.)
-  };
 
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold text-center mb-8">Checkout</h1>
-      <form onSubmit={handleSubmit} className="max-w-2xl mx-auto">
+      <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl mx-auto">
         {/* Personal Information */}
         <div className="card bg-base-100 shadow-xl p-6 mb-6">
           <h2 className="text-xl font-bold mb-4">Personal Information</h2>
@@ -44,10 +84,8 @@ const CheckoutPage: React.FC = () => {
               </label>
               <input
                 type="text"
-                name="fullName"
-                value={formData.fullName}
-                onChange={handleInputChange}
                 className="input input-bordered"
+                {...register("name")}
                 required
               />
             </div>
@@ -57,10 +95,8 @@ const CheckoutPage: React.FC = () => {
               </label>
               <input
                 type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
                 className="input input-bordered"
+                {...register("email")}
                 required
               />
             </div>
@@ -73,53 +109,45 @@ const CheckoutPage: React.FC = () => {
           <div className="space-y-4">
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Address</span>
+                <span className="label-text">Division</span>
               </label>
               <input
                 type="text"
-                name="address"
-                value={formData.address}
-                onChange={handleInputChange}
                 className="input input-bordered"
+                {...register("division")}
                 required
               />
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">City</span>
+                <span className="label-text">District</span>
               </label>
               <input
                 type="text"
-                name="city"
-                value={formData.city}
-                onChange={handleInputChange}
                 className="input input-bordered"
+                {...register("district")}
                 required
               />
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">State</span>
+                <span className="label-text">Upazila</span>
               </label>
               <input
                 type="text"
-                name="state"
-                value={formData.state}
-                onChange={handleInputChange}
                 className="input input-bordered"
+                {...register("upazila")}
                 required
               />
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Zip Code</span>
+                <span className="label-text">Area</span>
               </label>
               <input
                 type="text"
-                name="zipCode"
-                value={formData.zipCode}
-                onChange={handleInputChange}
                 className="input input-bordered"
+                {...register("area")}
                 required
               />
             </div>
@@ -130,52 +158,31 @@ const CheckoutPage: React.FC = () => {
         <div className="card bg-base-100 shadow-xl p-6 mb-6">
           <h2 className="text-xl font-bold mb-4">Payment Information</h2>
           <div className="space-y-4">
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Card Number</span>
-              </label>
+            <label className="fieldset-label text-lg title py-1">
               <input
-                type="text"
-                name="cardNumber"
-                value={formData.cardNumber}
-                onChange={handleInputChange}
-                className="input input-bordered"
-                required
+                type="radio"
+                className="radio"
+                value="online"
+                {...register("payment_method")}
+                defaultChecked
               />
-            </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Expiry Date</span>
-              </label>
+              Online
+            </label>
+            <label className="fieldset-label text-lg title py-1">
               <input
-                type="text"
-                name="expiryDate"
-                value={formData.expiryDate}
-                onChange={handleInputChange}
-                className="input input-bordered"
-                placeholder="MM/YY"
-                required
+                type="radio"
+                value="cash on delivary"
+                {...register("payment_method")}
+                className="radio"
               />
-            </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">CVV</span>
-              </label>
-              <input
-                type="text"
-                name="cvv"
-                value={formData.cvv}
-                onChange={handleInputChange}
-                className="input input-bordered"
-                required
-              />
-            </div>
+              Cash on delivary
+            </label>
           </div>
         </div>
 
         {/* Submit Button */}
         <div className="text-center">
-          <button type="submit" className="btn btn-primary w-full max-w-xs">
+          <button className="btn btn-primary w-full max-w-xs">
             Place Order
           </button>
         </div>

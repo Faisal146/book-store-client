@@ -26,8 +26,18 @@ const UpateUser = () => {
   const onSubmit = async (data) => {
     console.log(data);
 
-    const res = await updateUser({ id, data });
-    // console.log(res);
+    const UpdatedData = {};
+    Object.keys(data).forEach((item) => {
+      console.log(item);
+      if (data[item]) {
+        UpdatedData[item] = data[item];
+      }
+    });
+
+    console.log("updateddata =>", UpdatedData);
+
+    const res = await updateUser({ id, UpdatedData });
+    console.log(res);
 
     if (res.error) {
       Swal.fire({
@@ -45,7 +55,7 @@ const UpateUser = () => {
 
   return (
     <div>
-      <Link to="/admin/products" className="btn btn-soft shadow mb-3">
+      <Link to="/admin/users" className="btn btn-soft shadow mb-3">
         <FaAngleLeft></FaAngleLeft>
         Back
       </Link>
@@ -72,8 +82,21 @@ const UpateUser = () => {
             defaultValue={u?.email}
             className="input"
             placeholder="Type email"
-            {...register("author")}
+            {...register("email")}
           />
+          <p className="validator-hint"></p>
+        </fieldset>
+        <fieldset className="fieldset">
+          <legend className="fieldset-legend">User Role</legend>
+          <select
+            defaultValue={u?.role}
+            className="select"
+            {...register("role")}
+          >
+            <option disabled={true}>Pick a role</option>
+            <option>user</option>
+            <option>admin</option>
+          </select>
           <p className="validator-hint"></p>
         </fieldset>
 

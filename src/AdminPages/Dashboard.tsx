@@ -16,7 +16,9 @@ const Dashboard = () => {
   const totalUser = usersData?.data?.meta?.total;
   const totalOrder = ordersData?.data?.meta?.total;
   const totalProduct = productData?.data?.meta?.total;
-  const totalRevenue = revenue?.data?.totalRevenue;
+  const totalRevenue = revenue?.data?.totalRevenue[0]?.totalRevenue;
+
+  console.log(totalRevenue);
   return (
     <div>
       <h1 className="text-3xl mb-8">Dashboard</h1>

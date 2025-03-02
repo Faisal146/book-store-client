@@ -7,41 +7,52 @@ const ordersApi = baseApi.injectEndpoints({
         url: "/orders",
         method: "GET",
       }),
+      providesTags: ["order"],
+    }),
+
+    getUserOrders: builder.query({
+      query: () => ({
+        url: "/orders/my-orders",
+        method: "GET",
+      }),
+      providesTags: ["order"],
+    }),
+    getSingleOrder: builder.query({
+      query: (id) => ({
+        url: `/orders/${id}`,
+        method: "GET",
+      }),
+    }),
+    addOrder: builder.mutation({
+      query: (data) => ({
+        url: "/orders",
+        method: "POST",
+        body: data,
+      }),
     }),
 
     getRevenue: builder.query({
       query: () => ({
-        url: `/orders/revenue`,
+        url: `/orders/revenue/totalrevenue`,
         method: "GET",
       }),
     }),
-    addBook: builder.mutation({
-      query: (data) => {
-        return {
-          url: `/products`,
-          method: "POST",
-          body: data,
-        };
-      },
-    }),
-    updateBook: builder.mutation({
-      query: (args) => {
-        const { id, data } = args;
-        return {
-          url: `/products/${id}`,
-          method: "PUT",
-          body: data,
-        };
-      },
-    }),
+
     removeOrder: builder.mutation({
       query: (id) => ({
         url: `/orders/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["order"],
     }),
   }),
 });
 
-export const { useGetOrdersQuery, useRemoveOrderMutation, useGetRevenueQuery } =
-  ordersApi;
+export const {
+  useGetOrdersQuery,
+  useRemoveOrderMutation,
+  useGetRevenueQuery,
+  useAddOrderMutation,
+  useGetSingleOrderQuery,
+  useGetUserOrdersQuery,
+} = ordersApi;

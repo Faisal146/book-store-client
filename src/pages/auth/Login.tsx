@@ -5,7 +5,7 @@ import img from "../../assets/great-books-for-anytime-2000jpg.jpg";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useLoginMutation } from "../../redux/features/auth/authApi";
 import { verifyToken } from "../../utils/varifyToken";
-import { useAppDispatch, useAppSelector } from "../../redux/hook";
+import { useAppDispatch } from "../../redux/hook";
 import Swal from "sweetalert2";
 
 import { setUser } from "../../redux/features/auth/authSlice";

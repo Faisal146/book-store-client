@@ -1,4 +1,14 @@
 // Define the type for a book item
+import { Link } from "react-router-dom";
+import titleBg from "../../assets/postero-bg-6.jpg";
+import {
+  useGetSingleUserEmailQuery,
+  useRemoveFromCartMutation,
+} from "../../redux/features/api/users";
+import { selectCurrentUser } from "../../redux/features/auth/authSlice";
+import { useAppSelector } from "../../redux/hook";
+import Swal from "sweetalert2";
+
 type Book = {
   id: number;
   title: string;
@@ -37,44 +47,95 @@ const cartItems: Book[] = [
 ];
 
 const CartPage = () => {
-  // Calculate the total price
-  const totalPrice = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
+  const userInfo = useAppSelector(selectCurrentUser);
 
+  const { data: userData } = useGetSingleUserEmailQuery(userInfo?.email);
+  const [removeFromCart] = useRemoveFromCartMutation(undefined);
+
+  let subTotal = 0;
+
+  userData?.data?.cart.map((item) => {
+    // console.log(item.item.price * item.quantity);
+
+    subTotal += item.item.price * item.quantity;
+  });
+
+  console.log(subTotal);
+
+  const handleCartRemove = async (data) => {
+    const res = await removeFromCart(data);
+    console.log(res);
+    if (res.error) {
+      Swal.fire({
+        icon: "error",
+        title: "Something went wrong",
+      });
+    } else {
+      Swal.fire({
+        icon: "success",
+        title: "Removed from cart",
+        timer: 1300,
+      });
+    }
+  };
+  // console.log(totalPrice);
+
+  // Calculate the total price
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold text-center mb-8">Your Cart</h1>
-      <div className="grid gap-6">
-        {cartItems.map((item) => (
-          <div key={item.id} className="card card-side bg-base-100 shadow-xl">
-            <figure>
-              <img
-                src={item.image}
-                alt={item.title}
-                className="w-32 h-32 object-cover"
-              />
-            </figure>
-            <div className="card-body">
-              <h2 className="card-title">{item.title}</h2>
-              <p>by {item.author}</p>
-              <p>Price: ${item.price.toFixed(2)}</p>
-              <p>Quantity: {item.quantity}</p>
-              <div className="card-actions justify-end">
-                <button className="btn btn-error btn-sm">Remove</button>
+    <div>
+      <div
+        className="bg-base-200 py-16 my-10 text-center "
+        style={{
+          background: `url(${titleBg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center center",
+        }}
+      >
+        <h1 className="text-4xl text-center">My Cart</h1>
+      </div>
+
+      <div className="max-w-6xl container mx-auto p-4">
+        <div className="grid gap-6">
+          {userData?.data?.cart.map((item) => (
+            <div
+              key={item._id}
+              className="card card-side bg-base-100 shadow-xl"
+            >
+              <figure>
+                <img
+                  src={item.item?.title}
+                  alt={item.item?.title}
+                  className="w-32 h-32 object-cover"
+                />
+              </figure>
+              <div className="card-body">
+                <h2 className="card-title">{item.item?.title}</h2>
+                <p>by {item.item?.author}</p>
+                <p>Price: ${item.item?.price}</p>
+                <p>Quantity: {item.quantity}</p>
+                <p>Total Price: {item.quantity * item.item?.price}</p>
+                <div className="card-actions justify-end">
+                  <button
+                    onClick={() => handleCartRemove({ item: item.item._id })}
+                    className="btn btn-error btn-sm"
+                  >
+                    Remove
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
-      <div className="mt-8 p-6 bg-base-200 rounded-lg">
-        <h2 className="text-2xl font-bold mb-4">Order Summary</h2>
-        <div className="flex justify-between items-center">
-          <span>Total:</span>
-          <span className="text-xl font-bold">${totalPrice.toFixed(2)}</span>
+          ))}
         </div>
-        <button className="btn btn-primary w-full mt-6">Checkout</button>
+        <div className="mt-8 p-6 bg-base-200 rounded-lg">
+          <h2 className="text-2xl font-bold mb-4">Order Summary</h2>
+          <div className="flex justify-between items-center">
+            <span>Total:</span>
+            <span className="text-xl font-bold">{subTotal} TK.</span>
+          </div>
+          <Link to="/checkout" className="btn btn-primary w-full mt-6">
+            Checkout
+          </Link>
+        </div>
       </div>
     </div>
   );

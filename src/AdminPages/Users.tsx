@@ -26,7 +26,7 @@ const Users = () => {
       const result = await Swal.fire({
         icon: "warning",
         title: "Are you Sure?",
-        text: `${title} will be Blocked`,
+        text: `user will be Blocked`,
         showConfirmButton: true,
         showCancelButton: true,
         confirmButtonText: "Yes, Block",
@@ -67,7 +67,7 @@ const Users = () => {
       const result = await Swal.fire({
         icon: "warning",
         title: "Are you Sure?",
-        text: `${title} will be Unblocked`,
+        text: `user will be Unblocked`,
         showConfirmButton: true,
         showCancelButton: true,
         confirmButtonText: "Yes, Unblock",

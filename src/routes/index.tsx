@@ -20,6 +20,9 @@ import AdminProtectedRoute from "./AdminProtectedRoute";
 import Profile from "../pages/auth/profile";
 import CartPage from "../pages/cart/CartPage";
 import CheckoutPage from "../pages/orders/CheckOutForm";
+import OrderCompletedPage from "../pages/orders/Complited";
+import MyOrders from "../pages/orders/MyOrders";
+import UpdateProfile from "../pages/auth/UpdateProfile";
 
 const router = createBrowserRouter([
   {
@@ -55,8 +58,20 @@ const router = createBrowserRouter([
         element: <CheckoutPage></CheckoutPage>,
       },
       {
+        path: "/order-complited/:id",
+        element: <OrderCompletedPage></OrderCompletedPage>,
+      },
+      {
+        path: "/orders",
+        element: <MyOrders></MyOrders>,
+      },
+      {
         path: "/profile",
         element: <Profile></Profile>,
+      },
+      {
+        path: "/update-profile",
+        element: <UpdateProfile></UpdateProfile>,
       },
       // {
       //   path: "/shop",

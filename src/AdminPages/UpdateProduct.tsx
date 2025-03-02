@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
 import {
-  useAddBookMutation,
   useGetSigleBookQuery,
   useUpdateBookMutation,
 } from "../redux/features/api/products";
@@ -31,7 +30,17 @@ const UpdateProduct = () => {
     data.price = Number(data.price);
     data.quantity = Number(data.quantity);
 
-    const result = await updatebook({ id, data });
+    const UpdatedData = {};
+    Object.keys(data).forEach((item) => {
+      console.log(item);
+      if (data[item]) {
+        UpdatedData[item] = data[item];
+      }
+    });
+
+    console.log(UpdatedData);
+
+    const result = await updatebook({ id, UpdatedData });
     console.log(result);
 
     if (result.error) {
