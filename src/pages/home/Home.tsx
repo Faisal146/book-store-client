@@ -1,6 +1,5 @@
 import Slide from "./Slider";
 import Categories from "./Categories";
-import Items from "../Books/Items";
 
 import img from "../../assets/21-books-GQ-April-2018-041718-3x2.webp";
 import aboutimg from "../../assets/hand-drawn-flat-design-stack-books-illustration_23-2149341897.jpg";
@@ -8,6 +7,7 @@ import { Link } from "react-router-dom";
 import { FaPaperPlane } from "react-icons/fa";
 import { useGetBooksQuery } from "../../redux/features/api/products";
 import Item from "../Books/Item";
+import { TProduct } from "../../types";
 
 const Home = () => {
   // random books to show for popular and bestseller
@@ -29,7 +29,7 @@ const Home = () => {
         </div>
         <div className="max-w-6xl mx-auto flex flex-wrap justify-center">
           {bestsellers?.data?.result && bestsellers?.data?.result.length > 0 ? (
-            bestsellers.data.result.map((item, index) => {
+            bestsellers.data.result.map((item: TProduct, index: number) => {
               return <Item item={item} key={index}></Item>;
             })
           ) : bestsellers?.data?.result.length === 0 ? (
@@ -66,7 +66,7 @@ const Home = () => {
 
       <div className="max-w-6xl mx-auto flex flex-wrap justify-center">
         {popular?.data?.result && popular?.data?.result.length > 0 ? (
-          popular.data.result.map((item, index) => {
+          popular.data.result.map((item: TProduct, index: number) => {
             return <Item item={item} key={index}></Item>;
           })
         ) : popular?.data?.result.length === 0 ? (

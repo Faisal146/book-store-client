@@ -28,10 +28,10 @@ const UpdateProfile = () => {
     formState: { errors },
   } = useForm<FormData>();
 
-  const onSubmit: SubmitHandler<FormData> = async (data) => {
+  const onSubmit: SubmitHandler<FormData> = async (data: any) => {
     console.log("Profile Updated:", data);
 
-    const UpdatedData = {};
+    const UpdatedData: any = {};
     Object.keys(data).forEach((item) => {
       console.log(item);
       if (data[item]) {

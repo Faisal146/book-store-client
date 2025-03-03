@@ -15,14 +15,14 @@ import AllItems from "../pages/Books/AllItems";
 import ProductForm from "../AdminPages/ProductForm";
 import UpdateProduct from "../AdminPages/UpdateProduct";
 import UpateUser from "../AdminPages/UpateUser";
-import Orders from "../AdminPages/order/Orders";
+import Orders from "../AdminPages/Orders";
 import AdminProtectedRoute from "./AdminProtectedRoute";
-import Profile from "../pages/auth/profile";
 import CartPage from "../pages/cart/CartPage";
 import CheckoutPage from "../pages/orders/CheckOutForm";
 import OrderCompletedPage from "../pages/orders/Complited";
 import MyOrders from "../pages/orders/MyOrders";
 import UpdateProfile from "../pages/auth/UpdateProfile";
+import Profile from "../pages/auth/Profile";
 
 const router = createBrowserRouter([
   {

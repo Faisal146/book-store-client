@@ -21,16 +21,16 @@ const UpdateProduct = () => {
   const {
     register,
     handleSubmit,
-    watch,
-    formState: { errors },
+    // watch,
+    // formState: { errors },
   } = useForm();
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: any) => {
     console.log(data);
 
     data.price = Number(data.price);
     data.quantity = Number(data.quantity);
 
-    const UpdatedData = {};
+    const UpdatedData: any = {};
     Object.keys(data).forEach((item) => {
       console.log(item);
       if (data[item]) {
@@ -51,7 +51,7 @@ const UpdateProduct = () => {
     } else {
       Swal.fire({
         icon: "success",
-        title: "Product added",
+        title: "Product updated",
         showConfirmButton: false,
         timer: 1300,
       });

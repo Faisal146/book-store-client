@@ -1,4 +1,4 @@
-import { FaEye, FaPlus, FaStar } from "react-icons/fa";
+import { FaEye, FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Items = () => {

@@ -2,8 +2,8 @@ import Swal from "sweetalert2";
 import {
   useGetOrdersQuery,
   useRemoveOrderMutation,
-} from "../../redux/features/api/orders";
-import { TOrder } from "../../types";
+} from "../redux/features/api/orders";
+import { TOrder } from "../types";
 
 const Orders = () => {
   const { data } = useGetOrdersQuery(undefined);

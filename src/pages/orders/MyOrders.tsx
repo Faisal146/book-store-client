@@ -4,10 +4,9 @@ import {
   useGetUserOrdersQuery,
   useRemoveOrderMutation,
 } from "../../redux/features/api/orders";
+import { TOrder } from "../../types";
 
 const MyOrders = () => {
-  let id = 1;
-
   const { data } = useGetUserOrdersQuery(undefined);
   console.log(data);
 
@@ -15,7 +14,7 @@ const MyOrders = () => {
 
   const orders = data?.data;
 
-  const handleDelete = async (id, title) => {
+  const handleDelete = async (id: string, title: string) => {
     // Show confirmation alert
     const result = await Swal.fire({
       icon: "warning",
@@ -61,7 +60,7 @@ const MyOrders = () => {
 
       <div className="max-w-6xl mx-auto grid gap-6 min-h-96 pb-12">
         {orders && orders?.length > 0 ? (
-          orders.map((item) => (
+          orders.map((item: TOrder) => (
             <div
               key={item.name}
               className="card border-2 border-gray-100 card-side bg-base-100 shadow-xl"

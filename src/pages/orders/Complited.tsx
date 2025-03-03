@@ -1,17 +1,10 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useGetSingleOrderQuery } from "../../redux/features/api/orders";
+import { TOrder } from "../../types";
 
 const OrderCompletedPage: React.FC = () => {
   // Example order details (replace with actual data from your backend or state)
-  const orderDetails = {
-    orderId: "123456",
-    totalAmount: 99.99,
-    items: [
-      { name: "The Great Gatsby", quantity: 1, price: 15.99 },
-      { name: "To Kill a Mockingbird", quantity: 2, price: 12.99 },
-    ],
-  };
 
   const { id } = useParams();
 
@@ -19,7 +12,7 @@ const OrderCompletedPage: React.FC = () => {
 
   console.log(data);
 
-  const order = data?.data;
+  const order: TOrder = data?.data;
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-base-200 p-4">
@@ -54,7 +47,7 @@ const OrderCompletedPage: React.FC = () => {
           <div className="mt-6">
             <h2 className="text-xl font-bold mb-4">Ordered Items</h2>
             <div className="space-y-3">
-              {order?.products.map((item, index) => (
+              {order?.products.map((item, index: number) => (
                 <div key={index} className="flex justify-between">
                   <span>
                     {item?.product?.title} (x{item?.quantity})

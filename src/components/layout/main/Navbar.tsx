@@ -16,7 +16,7 @@ const Navbar = () => {
 
   let subTotal = 0;
 
-  userData?.data?.cart.map((item) => {
+  userData?.data?.cart.map((item: any) => {
     // console.log(item.item.price * item.quantity);
 
     subTotal += item.item.price * item.quantity;

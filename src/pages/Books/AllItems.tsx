@@ -5,9 +5,14 @@ import { useGetBooksQuery } from "../../redux/features/api/products";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { TProduct } from "../../types";
 
 const AllItems = () => {
-  const [filter, setFilter] = useState(null);
+  interface FilterState {
+    category?: string[];
+    // Add other filter properties if needed
+  }
+  const [filter, setFilter] = useState<FilterState | null>(null);
 
   const { data } = useGetBooksQuery(filter);
 
@@ -26,17 +31,17 @@ const AllItems = () => {
     (_, index) => index + 1
   );
 
-  console.log("totalpage = ", totalPage);
+  // console.log("totalpage = ", totalPage);
 
-  const onFilter = (data) => {
+  const onFilter = (data: any) => {
     // console.log(data);
     setFilter(data);
   };
-  const onSearch = (data) => {
+  const onSearch = (data: any) => {
     //  console.log(data);
     setFilter(data);
   };
-  const onPaginate = (data) => {
+  const onPaginate = (data: any) => {
     //  console.log(data);
     setFilter(data);
   };
@@ -96,7 +101,7 @@ const AllItems = () => {
 
             <div className="flex flex-wrap">
               {data?.data?.result && data?.data?.result.length > 0 ? (
-                data.data.result.map((item, index) => {
+                data.data.result.map((item: TProduct, index: number) => {
                   return <Item item={item} key={index}></Item>;
                 })
               ) : data?.data?.result.length === 0 ? (
@@ -122,7 +127,7 @@ const AllItems = () => {
                       type="radio"
                       value={item}
                       {...register("page")}
-                      aria-label={item}
+                      aria-label={String(item)}
                     />
                   ))}
                 </form>

@@ -11,7 +11,7 @@ const authApi = baseApi.injectEndpoints({
         if (args) {
           //  append categories
           if (args?.category) {
-            args?.category.map((item) => {
+            args?.category.map((item: string) => {
               params.append("category", item);
             });
           }

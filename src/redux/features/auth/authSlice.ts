@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 
 export type TAuthUser = {
-  userId: string;
+  email: string;
   role: string;
   iat: number;
   exp: number;

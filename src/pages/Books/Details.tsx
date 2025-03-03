@@ -12,6 +12,7 @@ import {
 import { useState } from "react";
 import Swal from "sweetalert2";
 import defaultImg from "../../assets/default_book.jpeg";
+import { TCartItem } from "../../types";
 
 const Details = () => {
   const { id } = useParams();
@@ -26,7 +27,7 @@ const Details = () => {
 
   // check if item is in cart or not
 
-  userData?.data?.cart.map((item) => {
+  userData?.data?.cart.map((item: TCartItem) => {
     if (item.item._id === book?._id) {
       incart = true;
     }

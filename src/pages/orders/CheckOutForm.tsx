@@ -16,16 +16,23 @@ const CheckoutPage: React.FC = () => {
 
   const products: any[] = [];
 
-  userData?.data?.cart.map((item) => {
-    products.push({
-      product: item.item?._id,
-      quantity: item.quantity,
-    });
-  });
+  userData?.data?.cart.map(
+    (item: {
+      item: {
+        _id: string;
+      };
+      quantity: number;
+    }) => {
+      products.push({
+        product: item.item?._id,
+        quantity: item.quantity,
+      });
+    }
+  );
 
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: any) => {
     console.log(data);
 
     const order = {

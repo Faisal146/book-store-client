@@ -18,7 +18,7 @@ const Registration = () => {
   const [file, setFile] = useState(null);
 
   // Handle file input change
-  const handleFileChange = (event) => {
+  const handleFileChange = (event: any) => {
     setFile(event.target.files[0]); // Get the first file
   };
 

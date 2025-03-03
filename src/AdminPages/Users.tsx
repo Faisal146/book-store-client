@@ -1,4 +1,4 @@
-import { FaLock, FaPlus, FaUnlock } from "react-icons/fa6";
+import { FaLock, FaUnlock } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { FaEdit } from "react-icons/fa";
 import profileImg from "../assets/Default_pfp.jpg";
@@ -9,6 +9,7 @@ import {
   useGetUsersQuery,
   useUnblockUserMutation,
 } from "../redux/features/api/users";
+import { TUser } from "../types";
 
 const Users = () => {
   let id = 1;
@@ -21,7 +22,7 @@ const Users = () => {
   const users = data?.data?.result;
   console.log(users);
 
-  const handleBlock = async (id, title) => {
+  const handleBlock = async (id: string) => {
     try {
       // Show confirmation alert
       const result = await Swal.fire({
@@ -53,7 +54,7 @@ const Users = () => {
         }
         // Show success message
       }
-    } catch (error) {
+    } catch {
       Swal.fire({
         icon: "error",
         title: "Oops... Something went wrong!",
@@ -62,7 +63,7 @@ const Users = () => {
     }
   };
 
-  const handleUnBlock = async (id, title) => {
+  const handleUnBlock = async (id: string) => {
     try {
       // Show confirmation alert
       const result = await Swal.fire({
@@ -94,7 +95,7 @@ const Users = () => {
         }
         // Show success message
       }
-    } catch (error) {
+    } catch {
       Swal.fire({
         icon: "error",
         title: "Oops... Something went wrong!",
@@ -127,7 +128,7 @@ const Users = () => {
             {/* row 1 */}
 
             {users ? (
-              users.map((item) => (
+              users.map((item: TUser) => (
                 <tr>
                   <th>{id++}</th>
                   <th>
@@ -151,14 +152,14 @@ const Users = () => {
                     </Link>
                     {item.isBlocked ? (
                       <button
-                        onClick={() => handleUnBlock(item._id, item.title)}
+                        onClick={() => handleUnBlock(item._id)}
                         className="btn btn-warning mr-2"
                       >
                         <FaUnlock></FaUnlock>
                       </button>
                     ) : (
                       <button
-                        onClick={() => handleBlock(item._id, item.title)}
+                        onClick={() => handleBlock(item._id)}
                         className="btn btn-warning mr-2"
                       >
                         <FaLock></FaLock>

@@ -1,26 +1,15 @@
-import React from "react";
 import { FaEye, FaStar } from "react-icons/fa";
-import { FaCartPlus } from "react-icons/fa6";
 import defaultImg from "../../assets/default_book.jpeg";
 import { Link } from "react-router-dom";
+import { TProduct } from "../../types";
 
-const Item = (item) => {
+const Item = (item: { item: TProduct }) => {
   const {
-    author,
-
     category,
-
-    createdAt,
-
-    description,
 
     inStock,
 
-    isDeleted,
-
     price,
-
-    quantity,
 
     title,
     img,

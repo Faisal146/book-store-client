@@ -20,13 +20,13 @@ const UpateUser = () => {
   const {
     register,
     handleSubmit,
-    watch,
-    formState: { errors },
+    // watch,
+    // formState: { errors },
   } = useForm();
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: any) => {
     console.log(data);
 
-    const UpdatedData = {};
+    const UpdatedData: any = {};
     Object.keys(data).forEach((item) => {
       console.log(item);
       if (data[item]) {

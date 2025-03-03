@@ -8,43 +8,8 @@ import {
 import { selectCurrentUser } from "../../redux/features/auth/authSlice";
 import { useAppSelector } from "../../redux/hook";
 import Swal from "sweetalert2";
-
-type Book = {
-  id: number;
-  title: string;
-  author: string;
-  price: number;
-  quantity: number;
-  image: string;
-};
-
-// Mock data for the cart
-const cartItems: Book[] = [
-  {
-    id: 1,
-    title: "The Great Gatsby",
-    author: "F. Scott Fitzgerald",
-    price: 15.99,
-    quantity: 2,
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 2,
-    title: "To Kill a Mockingbird",
-    author: "Harper Lee",
-    price: 12.99,
-    quantity: 1,
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 3,
-    title: "1984",
-    author: "George Orwell",
-    price: 10.99,
-    quantity: 3,
-    image: "https://via.placeholder.com/100",
-  },
-];
+import { TCartItem } from "../../types";
+import bookImg from "../../assets/default_book.jpeg";
 
 const CartPage = () => {
   const userInfo = useAppSelector(selectCurrentUser);
@@ -54,7 +19,7 @@ const CartPage = () => {
 
   let subTotal = 0;
 
-  userData?.data?.cart.map((item) => {
+  userData?.data?.cart.map((item: TCartItem) => {
     // console.log(item.item.price * item.quantity);
 
     subTotal += item.item.price * item.quantity;
@@ -62,7 +27,7 @@ const CartPage = () => {
 
   console.log(subTotal);
 
-  const handleCartRemove = async (data) => {
+  const handleCartRemove = async (data: any) => {
     const res = await removeFromCart(data);
     console.log(res);
     if (res.error) {
@@ -96,14 +61,14 @@ const CartPage = () => {
 
       <div className="max-w-6xl container mx-auto p-4">
         <div className="grid gap-6">
-          {userData?.data?.cart.map((item) => (
+          {userData?.data?.cart.map((item: TCartItem) => (
             <div
               key={item._id}
               className="card card-side bg-base-100 shadow-xl"
             >
               <figure>
                 <img
-                  src={item.item?.title}
+                  src={item.item?.img ? item.item?.img : bookImg}
                   alt={item.item?.title}
                   className="w-32 h-32 object-cover"
                 />

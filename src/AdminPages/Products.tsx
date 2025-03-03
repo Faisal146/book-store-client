@@ -9,12 +9,12 @@ import Swal from "sweetalert2";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import bookImg from "../assets/default_book.jpeg";
+import { TProduct } from "../types";
 
 const Products = () => {
   const [filter, setFilter] = useState(null);
+  const [id, setId] = useState(0);
   const { register, handleSubmit } = useForm();
-
-  let id = 1;
 
   const { data } = useGetBooksQuery(filter);
 
@@ -27,12 +27,14 @@ const Products = () => {
     (_, index) => index + 1
   );
 
-  const onPaginate = (data) => {
+  const onPaginate = (data: any) => {
     //  console.log(data);
     setFilter(data);
+    // setId((data.page - 1) * 9);
+    setId((data.page - 1) * 9);
   };
 
-  const handleDelete = async (id, title) => {
+  const handleDelete = async (id: string, title: string) => {
     try {
       // Show confirmation alert
       const result = await Swal.fire({
@@ -63,7 +65,7 @@ const Products = () => {
         }
         // Show success message
       }
-    } catch (error) {
+    } catch {
       Swal.fire({
         icon: "error",
         title: "Oops... Something went wrong!",
@@ -100,9 +102,9 @@ const Products = () => {
             {/* row 1 */}
 
             {products ? (
-              products.map((item) => (
+              products.map((item: TProduct, index: number) => (
                 <tr>
-                  <th>{id++}</th>
+                  <th>{id + index + 1}</th>
 
                   <th>
                     <img
@@ -149,7 +151,7 @@ const Products = () => {
                   type="radio"
                   value={item}
                   {...register("page")}
-                  aria-label={item}
+                  aria-label={String(item)}
                 />
               ))}
             </form>
