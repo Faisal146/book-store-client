@@ -7,13 +7,8 @@ import { FaAngleLeft } from "react-icons/fa6";
 const ProductForm = () => {
   const [addbook] = useAddBookMutation(undefined);
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
-  const onSubmit = async (data) => {
+  const { register, handleSubmit } = useForm();
+  const onSubmit = async (data: any) => {
     console.log(data);
 
     Swal.fire({
@@ -46,6 +41,10 @@ const ProductForm = () => {
         title: "Product added",
         showConfirmButton: false,
         timer: 1300,
+      }).then((res) => {
+        if (res.dismiss) {
+          window.location.reload();
+        }
       });
     }
   };

@@ -56,6 +56,8 @@ const Details = () => {
   const [removeFromCart] = useRemoveFromCartMutation(undefined);
 
   const handleAddToCart = async () => {
+    // check user logged in or not
+
     if (incart) {
       Swal.fire({
         icon: "error",
@@ -70,13 +72,18 @@ const Details = () => {
       if (res.error) {
         Swal.fire({
           icon: "error",
-          title: "Something went wrong",
+          title: !userInfo?.email ? "Please Log in !" : "something went wrong",
         });
       } else {
         Swal.fire({
           icon: "success",
           title: "Added to cart",
+          showConfirmButton: false,
           timer: 1300,
+        }).then((res) => {
+          if (res.dismiss) {
+            window.location.reload();
+          }
         });
       }
     }
@@ -99,10 +106,16 @@ const Details = () => {
           title: "Something went wrong",
         });
       } else {
+        // window.location.reload();
         Swal.fire({
           icon: "success",
           title: "Removed from cart",
+          showConfirmButton: false,
           timer: 1300,
+        }).then((res) => {
+          if (res.dismiss) {
+            window.location.reload();
+          }
         });
       }
     }

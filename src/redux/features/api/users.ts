@@ -7,18 +7,20 @@ const authApi = baseApi.injectEndpoints({
         url: "/users",
         method: "GET",
       }),
-      providesTags: ["cart"],
+      providesTags: ["user"],
     }),
     getSingleUser: builder.query({
       query: (id) => ({
         url: `/users/${id}`,
         method: "GET",
+        providesTags: ["user"],
       }),
     }),
     getSingleUserEmail: builder.query({
       query: (id) => ({
         url: `/users/email/${id}`,
         method: "GET",
+        providesTags: ["user"],
       }),
     }),
     addToCart: builder.mutation({
@@ -27,7 +29,7 @@ const authApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["cart"],
+      invalidatesTags: ["user"],
     }),
     removeFromCart: builder.mutation({
       query: (data) => ({
@@ -35,19 +37,21 @@ const authApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["cart"],
+      invalidatesTags: ["user"],
     }),
     blockUser: builder.mutation({
       query: (id) => ({
         url: `/auth/${id}/block`,
         method: "PATCH",
       }),
+      invalidatesTags: ["user"],
     }),
     unblockUser: builder.mutation({
       query: (id) => ({
         url: `/auth/${id}/unblock`,
         method: "PATCH",
       }),
+      invalidatesTags: ["user"],
     }),
 
     updateUser: builder.mutation({
@@ -56,6 +60,7 @@ const authApi = baseApi.injectEndpoints({
         method: "PATCH",
         body: args.UpdatedData,
       }),
+      invalidatesTags: ["user"],
     }),
   }),
 });

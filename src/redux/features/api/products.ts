@@ -40,13 +40,14 @@ const authApi = baseApi.injectEndpoints({
           params: params,
         };
       },
-      //  providesTags: ["task"],
+      providesTags: ["product"],
     }),
     getSigleBook: builder.query({
       query: (id) => ({
         url: `/products/${id}`,
         method: "GET",
       }),
+      providesTags: ["product"],
     }),
     addBook: builder.mutation({
       query: (data) => {
@@ -56,6 +57,7 @@ const authApi = baseApi.injectEndpoints({
           body: data,
         };
       },
+      invalidatesTags: ["product"],
     }),
     updateBook: builder.mutation({
       query: (args) => {
@@ -66,12 +68,14 @@ const authApi = baseApi.injectEndpoints({
           body: UpdatedData,
         };
       },
+      invalidatesTags: ["product"],
     }),
     removeBook: builder.mutation({
       query: (id) => ({
         url: `/products/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["product"],
     }),
   }),
 });

@@ -47,8 +47,13 @@ const UpateUser = () => {
     } else {
       Swal.fire({
         icon: "success",
-        timer: 1300,
         title: "Updated Successfully",
+        showConfirmButton: false,
+        timer: 1300,
+      }).then((res) => {
+        if (res.dismiss) {
+          window.location.reload();
+        }
       });
     }
   };

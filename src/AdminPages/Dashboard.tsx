@@ -16,7 +16,9 @@ const Dashboard = () => {
   const totalUser = usersData?.data?.meta?.total;
   const totalOrder = ordersData?.data?.meta?.total;
   const totalProduct = productData?.data?.meta?.total;
-  const totalRevenue = revenue?.data?.totalRevenue[0]?.totalRevenue;
+  const totalRevenue = revenue?.data?.totalRevenue[0]?.totalRevenue
+    ? revenue?.data?.totalRevenue[0]?.totalRevenue
+    : 0;
 
   console.log(totalRevenue);
   return (

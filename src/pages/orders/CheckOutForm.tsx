@@ -85,7 +85,7 @@ const CheckoutPage: React.FC = () => {
         <div className="card bg-base-100 shadow-xl p-6 mb-6">
           <h2 className="text-xl font-bold mb-4">Personal Information</h2>
           <div className="space-y-4">
-            <div className="form-control">
+            <div className="">
               <label className="label">
                 <span className="label-text">Full Name</span>
               </label>
@@ -173,7 +173,7 @@ const CheckoutPage: React.FC = () => {
                 {...register("payment_method")}
                 defaultChecked
               />
-              Online
+              Online (Surjo Pay)
             </label>
             <label className="fieldset-label text-lg title py-1">
               <input

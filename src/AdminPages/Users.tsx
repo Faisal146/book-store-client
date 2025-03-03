@@ -10,11 +10,15 @@ import {
   useUnblockUserMutation,
 } from "../redux/features/api/users";
 import { TUser } from "../types";
+import { useAppSelector } from "../redux/hook";
+import { selectCurrentUser } from "../redux/features/auth/authSlice";
 
 const Users = () => {
   let id = 1;
 
   const { data } = useGetUsersQuery(undefined);
+
+  const userInfo = useAppSelector(selectCurrentUser);
 
   const [block] = useBlockUserMutation(undefined);
   const [unBlock] = useUnblockUserMutation(undefined);
@@ -150,7 +154,9 @@ const Users = () => {
                     >
                       <FaEdit></FaEdit>
                     </Link>
-                    {item.isBlocked ? (
+                    {item.email === userInfo?.email ? (
+                      ""
+                    ) : item.isBlocked ? (
                       <button
                         onClick={() => handleUnBlock(item._id)}
                         className="btn btn-warning mr-2"

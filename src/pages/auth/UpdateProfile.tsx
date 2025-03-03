@@ -50,8 +50,13 @@ const UpdateProfile = () => {
     } else {
       Swal.fire({
         icon: "success",
-        timer: 1300,
         title: "Updated Successfully",
+        showConfirmButton: false,
+        timer: 1300,
+      }).then((res) => {
+        if (res.dismiss) {
+          window.location.reload();
+        }
       });
     }
   };
@@ -94,7 +99,6 @@ const UpdateProfile = () => {
               id="email"
               defaultValue={u?.email}
               {...register("email", {
-                required: "Email is required",
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                   message: "Invalid email address",

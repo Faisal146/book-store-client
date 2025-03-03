@@ -39,7 +39,12 @@ const CartPage = () => {
       Swal.fire({
         icon: "success",
         title: "Removed from cart",
+        showConfirmButton: false,
         timer: 1300,
+      }).then((res) => {
+        if (res.dismiss) {
+          window.location.reload();
+        }
       });
     }
   };
@@ -76,7 +81,7 @@ const CartPage = () => {
               <div className="card-body">
                 <h2 className="card-title">{item.item?.title}</h2>
                 <p>by {item.item?.author}</p>
-                <p>Price: ${item.item?.price}</p>
+                <p>Price: {item.item?.price} TK.</p>
                 <p>Quantity: {item.quantity}</p>
                 <p>Total Price: {item.quantity * item.item?.price}</p>
                 <div className="card-actions justify-end">

@@ -23,6 +23,7 @@ import OrderCompletedPage from "../pages/orders/Complited";
 import MyOrders from "../pages/orders/MyOrders";
 import UpdateProfile from "../pages/auth/UpdateProfile";
 import Profile from "../pages/auth/Profile";
+import ProtectedRoute from "./ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -55,27 +56,52 @@ const router = createBrowserRouter([
       },
       {
         path: "/cart",
-        element: <CartPage></CartPage>,
+        element: (
+          <ProtectedRoute>
+            <CartPage></CartPage>
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/checkout",
-        element: <CheckoutPage></CheckoutPage>,
+        element: (
+          <ProtectedRoute>
+            <CheckoutPage></CheckoutPage>
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/order-complited/:id",
-        element: <OrderCompletedPage></OrderCompletedPage>,
+        element: (
+          <ProtectedRoute>
+            <OrderCompletedPage></OrderCompletedPage>
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/orders",
-        element: <MyOrders></MyOrders>,
+        element: (
+          <ProtectedRoute>
+            {" "}
+            <MyOrders></MyOrders>
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/profile",
-        element: <Profile></Profile>,
+        element: (
+          <ProtectedRoute>
+            <Profile></Profile>
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/update-profile",
-        element: <UpdateProfile></UpdateProfile>,
+        element: (
+          <ProtectedRoute>
+            <UpdateProfile></UpdateProfile>
+          </ProtectedRoute>
+        ),
       },
       // {
       //   path: "/shop",

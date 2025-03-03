@@ -54,6 +54,10 @@ const UpdateProduct = () => {
         title: "Product updated",
         showConfirmButton: false,
         timer: 1300,
+      }).then((res) => {
+        if (res.dismiss) {
+          window.location.reload();
+        }
       });
     }
   };
