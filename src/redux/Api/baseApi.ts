@@ -55,7 +55,7 @@ import { RootState } from "../store";
 const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api/v1/",
+    baseUrl: "https://book-store-server-ashy.vercel.app/api/v1/",
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token;
 
