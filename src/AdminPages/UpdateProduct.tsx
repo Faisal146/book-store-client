@@ -14,8 +14,6 @@ const UpdateProduct = () => {
 
   const [updatebook] = useUpdateBookMutation(undefined);
 
-  console.log(data?.data);
-
   const b = data?.data;
 
   const {
@@ -25,20 +23,15 @@ const UpdateProduct = () => {
     // formState: { errors },
   } = useForm();
   const onSubmit = async (data: any) => {
-    console.log(data);
-
     data.price = Number(data.price);
     data.quantity = Number(data.quantity);
 
     const UpdatedData: any = {};
     Object.keys(data).forEach((item) => {
-      console.log(item);
       if (data[item]) {
         UpdatedData[item] = data[item];
       }
     });
-
-    console.log(UpdatedData);
 
     const result = await updatebook({ id, UpdatedData });
     console.log(result);

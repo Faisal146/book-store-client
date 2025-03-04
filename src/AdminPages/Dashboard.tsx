@@ -20,7 +20,7 @@ const Dashboard = () => {
     ? revenue?.data?.totalRevenue[0]?.totalRevenue
     : 0;
 
-  console.log(totalRevenue);
+  // console.log(totalRevenue);
   return (
     <div>
       <h1 className="text-3xl mb-8">Dashboard</h1>

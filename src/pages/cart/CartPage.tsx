@@ -25,8 +25,6 @@ const CartPage = () => {
     subTotal += item.item.price * item.quantity;
   });
 
-  console.log(subTotal);
-
   const handleCartRemove = async (data: any) => {
     const res = await removeFromCart(data);
     console.log(res);

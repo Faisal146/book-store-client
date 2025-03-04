@@ -28,7 +28,6 @@ const Login = () => {
 
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(email, password);
 
     try {
       const userInfo = {
@@ -38,7 +37,6 @@ const Login = () => {
       const res = await login(userInfo).unwrap();
       console.log(res);
       const user = verifyToken(res.data);
-      console.log(user);
       dispatch(setUser({ user: user, token: res.data }));
 
       Swal.fire({

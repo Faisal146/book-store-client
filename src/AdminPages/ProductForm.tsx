@@ -9,7 +9,7 @@ const ProductForm = () => {
 
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data: any) => {
-    console.log(data);
+    //  console.log(data);
 
     Swal.fire({
       title: "Processing",
@@ -19,8 +19,6 @@ const ProductForm = () => {
 
     data.price = Number(data.price);
     data.quantity = Number(data.quantity);
-
-    console.log(data.image[0]);
 
     const formData = new FormData();
 

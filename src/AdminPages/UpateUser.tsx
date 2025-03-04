@@ -15,8 +15,6 @@ const UpateUser = () => {
 
   const u = data?.data;
 
-  console.log(u);
-
   const {
     register,
     handleSubmit,
@@ -24,17 +22,12 @@ const UpateUser = () => {
     // formState: { errors },
   } = useForm();
   const onSubmit = async (data: any) => {
-    console.log(data);
-
     const UpdatedData: any = {};
     Object.keys(data).forEach((item) => {
-      console.log(item);
       if (data[item]) {
         UpdatedData[item] = data[item];
       }
     });
-
-    console.log("updateddata =>", UpdatedData);
 
     const res = await updateUser({ id, UpdatedData });
     console.log(res);

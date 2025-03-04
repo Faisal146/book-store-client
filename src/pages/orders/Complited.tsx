@@ -10,7 +10,7 @@ const OrderCompletedPage: React.FC = () => {
 
   const { data } = useGetSingleOrderQuery(id);
 
-  console.log(data);
+  //console.log(data);
 
   const order: TOrder = data?.data;
 

@@ -8,7 +8,7 @@ import { TOrder } from "../types";
 
 const Orders = () => {
   const { data } = useGetOrdersQuery(undefined);
-  console.log(data);
+  // console.log(data);
 
   const [deleteOrder] = useRemoveOrderMutation(undefined);
   const [updateOrder] = useUpdateOrderMutation(undefined);
@@ -63,7 +63,6 @@ const Orders = () => {
         status: value,
       };
       const updated = await updateOrder({ id, data });
-      console.log(updated);
       if (updated.error) {
         Swal.fire({
           icon: "error",
@@ -84,8 +83,6 @@ const Orders = () => {
   ) => {
     const value = e.target.value === "true" ? true : false;
 
-    console.log(Boolean(value));
-
     if (value === currentStatus) {
       Swal.fire({
         icon: "error",
@@ -96,7 +93,6 @@ const Orders = () => {
         paid: value,
       };
       const updated = await updateOrder({ id, data });
-      console.log(updated);
       if (updated.error) {
         Swal.fire({
           icon: "error",
