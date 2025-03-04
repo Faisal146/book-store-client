@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useAddOrderMutation } from "../../redux/features/api/orders";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { TCartItem } from "../../types";
 
 const CheckoutPage: React.FC = () => {
   const userInfo = useAppSelector(selectCurrentUser);
@@ -33,6 +34,11 @@ const CheckoutPage: React.FC = () => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data: any) => {
+    Swal.fire({
+      title: "processing",
+      text: "order is placing",
+      showConfirmButton: false,
+    });
     console.log(data);
 
     const order = {
@@ -45,7 +51,8 @@ const CheckoutPage: React.FC = () => {
         upazila: data.upazila,
         area: data.area,
       },
-      paid: data.payment_method === "online" ? true : false,
+      // paid: data.payment_method === "online" ? true : false,
+      paid: false,
       payment_method: data.payment_method,
     };
 
@@ -68,6 +75,8 @@ const CheckoutPage: React.FC = () => {
       }).then((result) => {
         if (result.isConfirmed) {
           navigate(`/order-complited/${res.data.data._id}`);
+        } else {
+          navigate(`/order-complited/${res.data.data._id}`);
         }
       });
     }
@@ -76,17 +85,38 @@ const CheckoutPage: React.FC = () => {
   // State for form input
 
   // Handle form submission
+  let totalAmount = 0;
 
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold text-center mb-8">Checkout</h1>
+
+      <div className="card bg-base-100 shadow-xl p-6 mb-6 max-w-2xl mx-auto">
+        <h2 className="text-xl font-bold mb-4">Order Summary </h2>
+
+        {userData?.data?.cart.map(({ item, quantity }: TCartItem) => {
+          totalAmount += item.price * quantity;
+          return (
+            <div className="flex justify-between gap-6">
+              <h1>
+                {item.title} - (x{quantity})
+              </h1>
+              <h1>{(item.price * quantity).toFixed(2)}</h1>
+            </div>
+          );
+        })}
+        <h1 className="text-xl font-bold mt-4">
+          Total Payable amount : {totalAmount.toFixed(2)}Tk
+        </h1>
+      </div>
+
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl mx-auto">
         {/* Personal Information */}
         <div className="card bg-base-100 shadow-xl p-6 mb-6">
           <h2 className="text-xl font-bold mb-4">Personal Information</h2>
           <div className="space-y-4">
             <div className="">
-              <label className="label">
+              <label className="label  pr-5">
                 <span className="label-text">Full Name</span>
               </label>
               <input
@@ -97,7 +127,7 @@ const CheckoutPage: React.FC = () => {
               />
             </div>
             <div className="form-control">
-              <label className="label">
+              <label className="label pr-5">
                 <span className="label-text">Email</span>
               </label>
               <input
@@ -115,7 +145,7 @@ const CheckoutPage: React.FC = () => {
           <h2 className="text-xl font-bold mb-4">Shipping Address</h2>
           <div className="space-y-4">
             <div className="form-control">
-              <label className="label">
+              <label className="label pr-5">
                 <span className="label-text">Division</span>
               </label>
               <input
@@ -126,7 +156,7 @@ const CheckoutPage: React.FC = () => {
               />
             </div>
             <div className="form-control">
-              <label className="label">
+              <label className="label pr-5">
                 <span className="label-text">District</span>
               </label>
               <input
@@ -137,7 +167,7 @@ const CheckoutPage: React.FC = () => {
               />
             </div>
             <div className="form-control">
-              <label className="label">
+              <label className="label pr-5">
                 <span className="label-text">Upazila</span>
               </label>
               <input
@@ -148,7 +178,7 @@ const CheckoutPage: React.FC = () => {
               />
             </div>
             <div className="form-control">
-              <label className="label">
+              <label className="label pr-5">
                 <span className="label-text">Area</span>
               </label>
               <input
@@ -173,7 +203,7 @@ const CheckoutPage: React.FC = () => {
                 {...register("payment_method")}
                 defaultChecked
               />
-              Online (Surjo Pay)
+              Online (SSLCommarz)
             </label>
             <label className="fieldset-label text-lg title py-1">
               <input

@@ -151,13 +151,15 @@ const Details = () => {
             {book?.price} TK.
             <span className=" font-bold"> </span>
           </h1>
-          <h1
-            className={` my-3 text-center shadow btn btn-sm md:text-left ${
-              book?.inStock ? "btn-soft" : "btn-error"
-            }`}
-          >
-            {book?.inStock ? "Available" : "Unavailable"}
-          </h1>
+          <div className="md:text-left text-center">
+            <button
+              className={` my-3  shadow btn btn-sm  ${
+                book?.inStock ? "btn-soft" : "btn-error"
+              }`}
+            >
+              {book?.inStock ? "Available" : "Unavailable"}
+            </button>
+          </div>
 
           <h1 className="text-2xl my-3 text-center md:text-left flex md:justify-start justify-center  items-center">
             <span className="text-gray-500 w-40 block text-xl">Rating :</span>
@@ -166,7 +168,7 @@ const Details = () => {
             </span>
           </h1>
 
-          <div className="mt-6 flex items-center gap-3">
+          <div className="mt-6 flex flex-wrap md:justify-start justify-center items-center gap-3">
             <div className="join">
               <button className="btn btn-lg join-item" onClick={increment}>
                 <FaPlus />

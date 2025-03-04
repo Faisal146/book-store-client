@@ -18,7 +18,7 @@ const Item = (item: { item: TProduct }) => {
   } = item.item;
 
   return (
-    <div className="md:w-1/3">
+    <div className="md:w-1/3  w-full md:px-0 p-4">
       <div className="card bg-base-100 shadow-xl p-3 m-2">
         <img
           src={img ? img : defaultImg}

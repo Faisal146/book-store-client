@@ -3,10 +3,41 @@ import baseApi from "../../Api/baseApi";
 const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getUsers: builder.query({
-      query: () => ({
-        url: "/users",
-        method: "GET",
-      }),
+      query: (args) => {
+        const params = new URLSearchParams();
+
+        if (args) {
+          //  append categories
+          if (args?.category) {
+            args?.category.map((item: string) => {
+              params.append("category", item);
+            });
+          }
+
+          //  append sort
+          if (args?.sort) {
+            params.append("sort", args.price);
+          }
+
+          // append search
+
+          if (args?.searchTerm) {
+            params.append("searchTerm", args.searchTerm);
+          }
+          if (args?.page) {
+            params.append("page", args.page);
+          }
+          if (args?.limit) {
+            params.append("limit", args.limit);
+          }
+        }
+
+        return {
+          url: "/users",
+          method: "GET",
+          params: params,
+        };
+      },
       providesTags: ["user"],
     }),
     getSingleUser: builder.query({

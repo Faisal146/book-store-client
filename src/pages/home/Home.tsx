@@ -42,11 +42,11 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="bg-cyan-300 py-10">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
+      <div className="bg-cyan-300 py-10 md:px-0 px-8">
+        <div className="max-w-6xl mx-auto flex flex-wrap gap-6 justify-between items-center">
           <div className="">
             <h1 className="text-4xl">2024 Book Award Shortlist</h1>
-            <p className="w-96 mt-4">
+            <p className="md:w-96 w-full mt-4">
               The book award shortlist for 2024 has been been publish. we have
               all books in our stock
             </p>

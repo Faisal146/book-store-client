@@ -33,6 +33,15 @@ const ordersApi = baseApi.injectEndpoints({
       invalidatesTags: ["order"],
     }),
 
+    updateOrder: builder.mutation({
+      query: (args) => ({
+        url: `/orders/${args.id}`,
+        method: "PATCH",
+        body: args.data,
+      }),
+      invalidatesTags: ["order"],
+    }),
+
     getRevenue: builder.query({
       query: () => ({
         url: `/orders/revenue/totalrevenue`,
@@ -57,4 +66,5 @@ export const {
   useAddOrderMutation,
   useGetSingleOrderQuery,
   useGetUserOrdersQuery,
+  useUpdateOrderMutation,
 } = ordersApi;

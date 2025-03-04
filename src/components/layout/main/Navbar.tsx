@@ -51,7 +51,7 @@ const Navbar = () => {
     <div>
       <div className="bg-base-200 shadow-sm w-full fixed z-50">
         <div className="navbar mx-auto max-w-6xl ">
-          <div className="navbar-start">
+          <div className="navbar-start md:w-1/2 w-auto">
             <div className="dropdown">
               <div
                 tabIndex={0}
@@ -83,7 +83,7 @@ const Navbar = () => {
             </div>
             <a className="btn btn-ghost text-xl text ">
               <img src={moonlogo} alt="" className="h-10" />
-              Moonlignt Book Shop
+              <span className="md:inline hidden">Moonlignt Book Shop</span>
             </a>
           </div>
           <div className="navbar-center hidden lg:flex">

@@ -58,22 +58,22 @@ const MyOrders = () => {
         <h1 className="text-4xl text-center">My orders</h1>
       </div>
 
-      <div className="max-w-6xl mx-auto grid gap-6 min-h-96 pb-12">
+      <div className="max-w-6xl mx-auto grid gap-6 min-h-96 mb-12 px-4">
         {orders && orders?.length > 0 ? (
           orders.map((item: TOrder) => (
             <div
               key={item.name}
-              className="card border-2 border-gray-100 card-side bg-base-100 shadow-xl"
+              className="cardborder-2 border-gray-100 card-side bg-base-100 shadow-xl"
             >
-              <div className="card-body">
-                <div className="flex gap-6 border-b">
+              <div className="card-body  md:p-8 p-4 ">
+                <div className="flex flex-wrap md:flex-row flex-col md:gap-6 gap-2 border-b">
                   <h2 className=" text-lg">User Name: {item?.user?.name}</h2>
                   <h2 className=" text-lg">Given Name: {item?.name}</h2>
                   <h2 className="text-lg">Given Email: {item?.email}</h2>
                 </div>
                 <h1 className="text-lg font-bold mt-2">Orders : </h1>
                 {item.products.map((product) => (
-                  <div className="flex justify-start items-center gap-5 bg-gray-100 rounded px-4">
+                  <div className="flex flex-wrap md:flex-row flex-col md:gap-5 gap-2 justify-start md:items-center items-start  bg-gray-100 rounded px-4">
                     <h2 className="font-bold ">{product.product.title}</h2>
                     {/* <p>by {product.product.author}</p> */}
                     <h3>Price: {product.product.price} TK.</h3>
@@ -81,7 +81,7 @@ const MyOrders = () => {
                     <h3>Total: {product.totalPrice} Tk.</h3>
                   </div>
                 ))}
-                <div className="flex mt-3 gap-6 border-b">
+                <div className="flex flex-wrap md:flex-row flex-col md:gap-6 gap-0 mt-3  border-b">
                   <h2 className="font-bold text-lg">
                     TotalPrice: {item?.totalPrice}
                   </h2>
@@ -89,8 +89,11 @@ const MyOrders = () => {
                   <h2 className="text-lg">
                     Payment Method: {item?.payment_method}
                   </h2>
+                  <h2 className="text-lg">
+                    Payment Status: {item?.paid ? "Paid" : "Not Paid"}
+                  </h2>
                 </div>
-                <div className="flex mt-3 gap-6">
+                <div className="flex flex-wrap md:flex-row flex-col md:gap-6 gap-2 mt-3 ">
                   <h2 className="font-bold ">Shipping Address:</h2>
                   <h2 className="">division: {item?.address?.division}</h2>
                   <h2 className="">district: {item?.address?.district}</h2>

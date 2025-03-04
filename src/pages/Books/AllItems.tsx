@@ -66,13 +66,13 @@ const AllItems = () => {
             {/* Page content here */}
             <label
               htmlFor="my-drawer-2"
-              className="btn btn-primary drawer-button lg:hidden"
+              className="btn btn-primary drawer-button lg:hidden mb-4"
             >
               <FaFilter />
               Filter
             </label>
-            <form onSubmit={handleSubmit(onSearch)}>
-              <label className="input w-full bg-blue-100">
+            <form onSubmit={handleSubmit(onSearch)} className="flex gap-3">
+              <label className="input w-full bg-cyan-50">
                 <svg
                   className="h-[1em] opacity-50"
                   xmlns="http://www.w3.org/2000/svg"
@@ -97,6 +97,9 @@ const AllItems = () => {
                   {...register("searchTerm")}
                 />
               </label>
+              <button type="submit" className="btn btn-info">
+                Search
+              </button>
             </form>
 
             <div className="flex flex-wrap">

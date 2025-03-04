@@ -6,6 +6,7 @@ import {
   FaUsers,
 } from "react-icons/fa";
 import logoDark from "../../../assets/moonLogo-Dark.svg";
+import logoLight from "../../../assets/moonLogo.svg";
 import { NavLink, Outlet } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import {
@@ -61,7 +62,7 @@ const AdminLayout = () => {
             Open drawer
           </label> */}
 
-          <div className="navbar  shadow-sm bg-base-300">
+          <div className="navbar shadow-sm bg-base-300">
             <div className="flex-none">
               <label
                 htmlFor="my-drawer-2"
@@ -83,7 +84,13 @@ const AdminLayout = () => {
               </label>
             </div>
             <div className="flex-1">
-              <a className="btn btn-ghost text-xl">Admin : {userInfo?.email}</a>
+              <a className="btn btn-ghost text-xl md:block hidden ">
+                Admin : {userInfo?.email}
+              </a>
+              <a className="btn btn-ghost text-xl md:hidden flex">
+                <img src={logoLight} alt="" className="h-8 " />
+                Admin
+              </a>
             </div>
             <div className="flex-none">
               <button

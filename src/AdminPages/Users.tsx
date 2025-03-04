@@ -12,19 +12,40 @@ import {
 import { TUser } from "../types";
 import { useAppSelector } from "../redux/hook";
 import { selectCurrentUser } from "../redux/features/auth/authSlice";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
 
 const Users = () => {
-  let id = 1;
+  const [filter, setFilter] = useState(null);
+  const [id, setId] = useState(0);
 
-  const { data } = useGetUsersQuery(undefined);
+  const { data } = useGetUsersQuery(filter);
 
   const userInfo = useAppSelector(selectCurrentUser);
 
   const [block] = useBlockUserMutation(undefined);
   const [unBlock] = useUnblockUserMutation(undefined);
+  const { register, handleSubmit } = useForm();
 
   const users = data?.data?.result;
-  console.log(users);
+  // console.log(users);
+
+  const onPaginate = (data: any) => {
+    //  console.log(data);
+    setFilter(data);
+    // setId((data.page - 1) * 9);
+    setId((data.page - 1) * 9);
+  };
+
+  const onSearch = (data: any) => {
+    //  console.log(data);
+    setFilter(data);
+  };
+
+  const totalPage = Array.from(
+    { length: data?.data?.meta.totalPage },
+    (_, index) => index + 1
+  );
 
   const handleBlock = async (id: string) => {
     try {
@@ -114,6 +135,40 @@ const Users = () => {
         <h1 className="text-3xl">User Management</h1>
       </div>
 
+      <form
+        onSubmit={handleSubmit(onSearch)}
+        className="flex gap-4 max-w-4xl mb-6"
+      >
+        <label className="input w-full bg-cyan-50">
+          <svg
+            className="h-[1em] opacity-50"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <g
+              strokeLinejoin="round"
+              strokeLinecap="round"
+              strokeWidth="2.5"
+              fill="none"
+              stroke="currentColor"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </g>
+          </svg>
+
+          <input
+            type="search"
+            placeholder="Search"
+            className="w-full"
+            {...register("searchTerm")}
+          />
+        </label>
+        <button type="submit" className="btn btn-info">
+          Search
+        </button>
+      </form>
+
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}
@@ -132,9 +187,9 @@ const Users = () => {
             {/* row 1 */}
 
             {users ? (
-              users.map((item: TUser) => (
+              users.map((item: TUser, index: number) => (
                 <tr>
-                  <th>{id++}</th>
+                  <th>{id + index + 1}</th>
                   <th>
                     <img
                       src={item?.profileImg ? item?.profileImg : profileImg}
@@ -146,7 +201,7 @@ const Users = () => {
                   <th>{item.email}</th>
                   <td>{item.role}</td>
                   <td>{item.isBlocked ? "Blocked" : "Active"}</td>
-                  <td>
+                  <td className="flex">
                     {" "}
                     <Link
                       to={`/admin/users/update/${item._id}`}
@@ -181,10 +236,27 @@ const Users = () => {
                 </tr>
               ))
             ) : (
-              <h1>loading...</h1>
+              <h1 className="mt52 text-3xl text-center">loading...</h1>
             )}
           </tbody>
         </table>
+      </div>
+      <div className="flex justify-center py-8">
+        <div className="join">
+          <form onChange={handleSubmit(onPaginate)}>
+            {totalPage.map((item) => (
+              <input
+                className={`join-item btn ${
+                  data?.data?.meta.page == item ? "btn-primary" : "btn-soft"
+                }`}
+                type="radio"
+                value={item}
+                {...register("page")}
+                aria-label={String(item)}
+              />
+            ))}
+          </form>
+        </div>
       </div>
     </div>
   );

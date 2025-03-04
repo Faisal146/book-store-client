@@ -28,7 +28,7 @@ const Dashboard = () => {
       <div className="flex flex-wrap md:flex-row flex-col">
         <div className="md:w-1/3 w-full  p-1">
           <div className="h-42  bg-cyan-300 rounded-2xl flex items-center justify-center flex-col">
-            <h1 className="text-6xl">{totalRevenue} TK</h1>
+            <h1 className="text-6xl">{totalRevenue.toFixed(2)} TK</h1>
             <h1 className="text-2xl">total Order Revenue </h1>
           </div>
         </div>
